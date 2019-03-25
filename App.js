@@ -7,12 +7,32 @@ import { StyleSheet,
          ImageBackground,
          Image,
         } from 'react-native';
+
+import { createStackNavigator, createAppContainer } from 'react-navigation';        
  
 import Inicio from './component/Inicio'; 
 import Crearusuario from './component/Crearusuario'; 
 import Iniciarsesion from './component/Iniciarsesion';      
  
 
+const RootStack = createStackNavigator(
+  {
+    Home: {
+      screen: Inicio,
+    },
+    Iniciar: {
+      screen: Iniciarsesion,
+    },
+    Crear: {
+      screen: Crearusuario,
+    },
+  },
+  {
+    initialRouteName: 'Home',
+  }
+);
+
+const AppContainer = createAppContainer(RootStack);
 
 export default class App extends React.Component {
   
@@ -20,7 +40,7 @@ export default class App extends React.Component {
   render() {
     return (
       
-      <Iniciarsesion/>
+      <AppContainer />
      
     );
   }

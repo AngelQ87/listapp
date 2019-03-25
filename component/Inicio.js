@@ -8,7 +8,7 @@ import { StyleSheet,
          Image,
         } from 'react-native';
  
-
+import { createStackNavigator, createAppContainer } from 'react-navigation';
 
 export default class Inicio extends React.Component {
   
@@ -37,10 +37,10 @@ export default class Inicio extends React.Component {
               <View style={{ alignItems: 'center', justifyContent: 'center'}}>
                 <View style={{ width: 'auto', height: 30 }}></View>
                 <View style={{ width: 200, paddingTop: 50}}>
-                  <Button title='Crear cuenta' onPress={this.button_inicio} />
+                  <Button title='Crear cuenta' onPress={() => this.props.navigation.navigate('Crear')} />
                 </View>
                 <View style={{ width: 200, paddingTop: 30}}>
-                  <Button title='Iniciar sesion' onPress={this.button_inicio} color="#841584" />
+                  <Button title='Iniciar sesion' onPress={() => this.props.navigation.navigate('Iniciar')} color="#841584" />
                 </View>
               </View> 
            </View>
