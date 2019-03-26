@@ -13,7 +13,8 @@ import { createStackNavigator, createAppContainer } from 'react-navigation';
 import Inicio from './component/Inicio'; 
 import Crearusuario from './component/Crearusuario'; 
 import Iniciarsesion from './component/Iniciarsesion';   
-import Camara from './component/Camara';   
+//import Camara from './component/Camara'; 
+import Camaraexpo from './component/Camaraexpo';  
  
 
 const RootStack = createStackNavigator(
@@ -26,6 +27,9 @@ const RootStack = createStackNavigator(
     },
     Crear: {
       screen: Crearusuario,
+    },
+    Camara: {
+      screen: Camaraexpo,
     },
   },
   {
@@ -41,7 +45,7 @@ export default class App extends React.Component {
   render() {
     return (
       
-      <Camara/>
+      <AppContainer/>
      
     );
   }

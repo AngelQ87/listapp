@@ -30,7 +30,7 @@ export default class Inicio extends React.Component {
       <ImageBackground style={styles.container} source={require('./images/fondo.png')}
         imageStyle={{ resizeMode: 'stretch' }} >
         <View style={styles.inner}>
-            <TouchableHighlight onPress={this.button_inicio}>
+            <TouchableHighlight onPress={() => this.props.navigation.navigate('Camara')}>
                     <View style={{ width: 300, height: 50, backgroundColor: 'blue', marginTop: 60, 
                     marginBottom: 10, alignItems: 'center',justifyContent: 'center', borderRadius: 8,
                     borderWidth: 1}}>
