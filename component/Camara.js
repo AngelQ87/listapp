@@ -1,62 +1,93 @@
-import React from 'react';
-import { StyleSheet, 
-         Text, 
-         View, 
-         Button, 
-         Alert, 
-         ImageBackground,
-         Image,
-         Linking,
-         TouchableOpacity,
-        } from 'react-native';
-
+import React from 'react' ;
+import { Alert, Text , View , StyleSheet, TouchableOpacity } from 'react-native' ;
+import { Camera , Permissions, BarCodeScanner } from 'expo' ; 
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+  
+export default class CameraExample extends React . Component {
      
-import QRCodeScanner from 'react-native-qrcode-scanner'; 
+      constructor(props){
+        super(props);
+        this.state = { 
+          hasCameraPermission : null , 
+          type : Camera . Constants . Type . back , 
+          barcodeScanning: false,
+        } ; 
 
-
-export default class Camara extends React.Component {
-    onSuccess(e) {
-        Linking
-          .openURL(e.data)
-          .catch(err => console.error('An error occured', err));
+        this.toggleBarcodeScanning= this.toggleBarcodeScanning.bind(this);
+        this.onBarCodeScanned= this.onBarCodeScanned.bind(this);
       }
- 
-  render() {
-    return (
-        <QRCodeScanner
-        onRead={this.onSuccess.bind(this)}
-        topContent={
-          <Text style={styles.centerText}>
-            Go to <Text style={styles.textBold}>wikipedia.org/wiki/QR_code</Text> on your computer and scan the QR code.
-          </Text>
-        }
-        bottomContent={
-          <TouchableOpacity style={styles.buttonTouchable}>
-            <Text style={styles.buttonText}>OK. Got it!</Text>
-          </TouchableOpacity>
-        }
-      />
-    );
-  }
-}
+
+
+
+     async componentDidMount () {
+          const { status } = await Permissions . askAsync ( Permissions . CAMERA ) ; 
+          this . setState ( {
+               hasCameraPermission : status === 'granted' } ) ; 
+           } ;
+
+                     
+           toggleBarcodeScanning = () => this.setState({ barcodeScanning: !this.state.barcodeScanning });
+
+           onBarCodeScanned = code => {
+            this.setState(
+              { barcodeScanning: !this.state.barcodeScanning },
+              Alert.alert(`Barcode found: ${code.data}`)
+            );
+          };
+
+
+
+
+      render () { 
+
+            const { hasCameraPermission } = this . state ;
+
+                if ( hasCameraPermission === null ){
+                    return <View/> ; 
+                   } 
+                else if ( hasCameraPermission === false ){ 
+                    return <Text>No access to camera</Text>; 
+                   }
+                else { 
+                     
+                    return ( <View style = { { flex : 1 } }>
+                                 <Camera style = { { flex : 1 } } type = { this . state . type } barCodeScannerSettings={{
+                                    barCodeTypes: [BarCodeScanner.Constants.BarCodeType.code39],}}
+                                    onBarCodeScanned={this.state.barcodeScanning ? this.onBarCodeScanned : undefined}>
+                                    <View style={styles.options}>
+                                          <View style={styles.detectors}>                                       
+                                            <TouchableOpacity onPress={this.toggleBarcodeScanning}>
+                                              <MaterialCommunityIcons name="barcode-scan" size={60} color={this.state.barcodeScanning ? "white" : "#858585"} />
+                                            </TouchableOpacity>
+                                          </View>
+                                      </View>                                    
+                                 </Camera>
+                               </View> 
+                       
+                           ); 
+                       } 
+                      } 
+                    } 
+
+
 
 const styles = StyleSheet.create({
-    centerText: {
-        flex: 1,
-        fontSize: 18,
-        padding: 32,
-        color: '#777',
-      },
-      textBold: {
-        fontWeight: '500',
-        color: '#000',
-      },
-      buttonText: {
-        fontSize: 21,
-        color: 'rgb(0,122,255)',
-      },
-      buttonTouchable: {
-        padding: 16,
-      },
-
-});
+                            
+  options: {
+  position: 'absolute',
+  bottom: 80,
+  left: 30,
+  width: 300,
+  height: 300,
+  backgroundColor: '#000000BA',
+  borderRadius: 4,
+  padding: 10,
+  },
+  detectors: {
+  flex: 0.5,
+  justifyContent: 'space-around',
+  alignItems: 'center',
+  flexDirection: 'row',
+  },
+                            
+  });                      

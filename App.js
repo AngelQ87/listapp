@@ -12,9 +12,8 @@ import { createStackNavigator, createAppContainer } from 'react-navigation';
  
 import Inicio from './component/Inicio'; 
 import Crearusuario from './component/Crearusuario'; 
-import Iniciarsesion from './component/Iniciarsesion';   
-//import Camara from './component/Camara'; 
-import Camaraexpo from './component/Camaraexpo';  
+import Iniciarsesion from './component/Iniciarsesion'; 
+import Camara from './component/Camara';
  
 
 const RootStack = createStackNavigator(
@@ -29,7 +28,7 @@ const RootStack = createStackNavigator(
       screen: Crearusuario,
     },
     Camara: {
-      screen: Camaraexpo,
+      screen: Camara,
     },
   },
   {
