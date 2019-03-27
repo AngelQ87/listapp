@@ -29,7 +29,7 @@ const RootStack = createStackNavigator(
       screen: Crearusuario,
     },
     Camara: {
-      screen: Camaraotra,
+      screen: Camara,
     },
   },
   {

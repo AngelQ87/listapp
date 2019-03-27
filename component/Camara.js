@@ -1,7 +1,7 @@
 import React from 'react' ;
-import { Alert, Text , View , StyleSheet, TouchableOpacity } from 'react-native' ;
+import { Alert, Text , View , StyleSheet, TouchableOpacity, Image } from 'react-native' ;
 import { Camera , Permissions, BarCodeScanner } from 'expo' ; 
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+
   
 export default class CameraExample extends React . Component {
      
@@ -13,7 +13,6 @@ export default class CameraExample extends React . Component {
           barcodeScanning: false,
         } ; 
 
-        this.toggleBarcodeScanning= this.toggleBarcodeScanning.bind(this);
         this.onBarCodeScanned= this.onBarCodeScanned.bind(this);
       }
 
@@ -26,13 +25,12 @@ export default class CameraExample extends React . Component {
            } ;
 
                      
-           toggleBarcodeScanning = () => this.setState({ barcodeScanning: !this.state.barcodeScanning });
+           
 
            onBarCodeScanned = code => {
-            this.setState(
-              { barcodeScanning: !this.state.barcodeScanning },
+
               Alert.alert(`Barcode found: ${code.data}`)
-            );
+           
           };
 
 
@@ -51,17 +49,22 @@ export default class CameraExample extends React . Component {
                 else { 
                      
                     return ( <View style = { { flex : 1 } }>
-                                 <Camera style = { { flex : 1 } } type = { this . state . type } barCodeScannerSettings={{
+                                 <Camera style = { { flex : 1, flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center', } } type = { this . state . type } barCodeScannerSettings={{
                                     barCodeTypes: [BarCodeScanner.Constants.BarCodeType.code39],}}
-                                    onBarCodeScanned={this.state.barcodeScanning ? this.onBarCodeScanned : undefined}>
+                                    onBarCodeScanned={this.onBarCodeScanned}>
+                                    <View>
+                                      <Image style={{width: 300 , height: 120}} source={require('./images/logo.png')}></Image>
+                                    </View>
                                     <View style={styles.options}>
                                           <View style={styles.detectors}>                                       
-                                            <TouchableOpacity onPress={this.toggleBarcodeScanning}>
-                                              <MaterialCommunityIcons name="barcode-scan" size={60} color={this.state.barcodeScanning ? "white" : "#858585"} />
+                                            <TouchableOpacity>                                              
                                             </TouchableOpacity>
                                           </View>
-                                      </View>                                    
-                                 </Camera>
+                                      </View> 
+                                      <View style={{ width: 'auto', height: 30 }}>
+                                        <Text>Powered by Ing. Angel Quintero</Text>
+                                      </View>                                   
+                                </Camera>
                                </View> 
                        
                            ); 
