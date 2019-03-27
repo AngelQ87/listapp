@@ -14,6 +14,7 @@ import Inicio from './component/Inicio';
 import Crearusuario from './component/Crearusuario'; 
 import Iniciarsesion from './component/Iniciarsesion'; 
 import Camara from './component/Camara';
+import Camaraotra  from './component/Camaraotra';
  
 
 const RootStack = createStackNavigator(
@@ -28,7 +29,7 @@ const RootStack = createStackNavigator(
       screen: Crearusuario,
     },
     Camara: {
-      screen: Camara,
+      screen: Camaraotra,
     },
   },
   {
