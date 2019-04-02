@@ -18,7 +18,7 @@ export default class CameraExample extends React . Component {
         } ; 
 
         this.onBarCodeScanned= this.onBarCodeScanned.bind(this);
-       
+        
       }
 
       
@@ -29,11 +29,24 @@ export default class CameraExample extends React . Component {
            } ;
          
     
+     
+
 
       onBarCodeScanned = code => {
+            
+              var cod = code.data;
+              var posicion = 0;
+              var extraccion= "";
+                while(letra != '-'){
+                var letra= cod[posicion];
+                  if(letra != '-')
+                      var extraccion= extraccion + letra;  
+                posicion++;  
+                }
+                           
 
             var db = firebase.firestore();
-            var docRef = db.collection("codigos").doc("801130MIP");
+            var docRef = db.collection("codigos").doc(extraccion);
             //`${code.data}`
             docRef.get().then(function(doc) {
               if (doc.exists) {
