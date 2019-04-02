@@ -7,9 +7,8 @@ import firebase from '../Firebase';
 export default class CameraExample extends React . Component {
      
       constructor(props){
-        super(props);
-        this.ref = firebase.firestore().collection('codigos');
-        this.unsubscribe = null;
+        super(props);       
+        var db = firebase.firestore();
         this.state = { 
           hasCameraPermission : null , 
           type : Camera . Constants . Type . back , 
@@ -19,51 +18,35 @@ export default class CameraExample extends React . Component {
         } ; 
 
         this.onBarCodeScanned= this.onBarCodeScanned.bind(this);
-        this.onCollectionUpdate= this.onCollectionUpdate(this);
+       
       }
 
-      onCollectionUpdate = (querySnapshot) => {
-        const codigos = [];
-        querySnapshot.forEach((doc) => {
-          const { empresaria, minorista, pvp } = doc.data();
-          codigos.push({
-            key: doc.id,
-            doc, // DocumentSnapshot
-            empresaria,
-            minorista,
-            pvp,
-          });
-        });
-        this.setState({
-          codigos,
-          isLoading: false,
-       });
-      }
-
-
+      
      async componentDidMount () {
           const { status } = await Permissions . askAsync ( Permissions . CAMERA ) ; 
           this . setState ( {hasCameraPermission : status === 'granted' } ) ; 
-
-          this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate);
+          
            } ;
+         
+    
 
-                     
-           
+      onBarCodeScanned = code => {
 
-           onBarCodeScanned = code => {
-             
-            var valor= this.state.codigos.forEach(item => {              
-                      
-                        if(item.doc == code.data)
-                            return item;
+            var db = firebase.firestore();
+            var docRef = db.collection("codigos").doc("801130MIP");
+            //`${code.data}`
+            docRef.get().then(function(doc) {
+              if (doc.exists) {
+                   Alert.alert(`Precio P.V.P: ${doc.data().pvp}`);
+              } else {
+                  // doc.data() will be undefined in this case
+                  Alert.alert("El codigo no existe o no se encuentra registrado.");
               }
-            ) ;
-                            
-              if(valor)
-                   Alert.alert(`Barcode found: ${valor.pvp}`);
-              else
-                   Alert.alert("El codigo no existe /n o no se encuentra registrado.");
+          }).catch(function(error) {
+            Alert.alert("Error al acceder a la base de datos");
+          });
+
+                       
           };
 
 

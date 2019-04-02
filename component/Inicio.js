@@ -11,10 +11,6 @@ import { StyleSheet,
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 
 
-import Crearusuario from './Crearusuario';
-import Iniciarsesion from './Iniciarsesion'; 
-
-
 export default class Inicio extends React.Component {
   
   constructor(props){
@@ -27,6 +23,9 @@ export default class Inicio extends React.Component {
   button_inicio(){
     Alert.alert('Button de Prueba');
   }
+
+  
+
 
   render() {
     return (

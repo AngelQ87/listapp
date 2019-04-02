@@ -15,6 +15,7 @@ import Crearusuario from './component/Crearusuario';
 import Iniciarsesion from './component/Iniciarsesion'; 
 import Camara from './component/Camara';
 import Camaraotra  from './component/Camaraotra';
+
  
 
 const RootStack = createStackNavigator(
@@ -46,6 +47,8 @@ export default class App extends React.Component {
     return (
       
       <AppContainer/>
+
+      
      
     );
   }
