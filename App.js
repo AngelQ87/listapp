@@ -15,6 +15,7 @@ import Crearusuario from './component/Crearusuario';
 import Iniciarsesion from './component/Iniciarsesion'; 
 import Camara from './component/Camara';
 import Camaraotra  from './component/Camaraotra';
+import Adminadd from './component/Adminadd';
 
  
 
@@ -46,7 +47,7 @@ export default class App extends React.Component {
   render() {
     return (
       
-      <AppContainer/>
+      <Adminadd/>
 
       
      
