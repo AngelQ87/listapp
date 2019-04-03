@@ -50,7 +50,7 @@ export default class CameraExample extends React . Component {
             //`${code.data}`
             docRef.get().then(function(doc) {
               if (doc.exists) {
-                   Alert.alert(`Precio P.V.P: ${doc.data().pvp}`);
+                   Alert.alert(`Codigo: ${extraccion} P.V.P: ${doc.data().pvp} Empresaria: ${doc.data().empresaria}`);
               } else {
                   // doc.data() will be undefined in this case
                   Alert.alert("El codigo no existe o no se encuentra registrado.");
