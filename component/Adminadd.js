@@ -27,20 +27,42 @@ export default class Adminadd extends React.Component {
         isLoading: false,
     };
 
-    this.button_inicio= this.button_inicio.bind(this);
-    this.updateTextInput= this.updateTextInput(this);
+    this.button_guardar= this.button_guardar.bind(this);
+    
   }
 
-  button_inicio(){
-    Alert.alert('Button de Prueba');
+  button_guardar(){
+
+        var db = firebase.firestore();
+        db.collection("codigos").add({
+          directores: this.state.directores, 
+          mayorista: this.state.mayorista,
+          minorista: this.state.minorista,
+          empresaria: this.state.empresaria,
+          pvp: this.state.pvp,          
+      })
+      .then(function(docRef) {
+          //console.log("Document written with ID: ", docRef.id); 
+          Alert.alert('Codigo insertado correctamente');                     
+      })
+      .catch(function(error) {
+          //console.error("Error adding document: ", error);
+          Alert.alert('Error al insertar el codigo');
+      });
+
+    this.setState({
+        codigo: "",
+        directores: "",
+        mayorista: "",
+        minorista: "",
+        empresaria: "",
+        pvp: "",
+        isLoading: false,
+    })
+    
   }
 
-  updateTextInput = (text, field) => {
-    const state = this.state
-    state[field] = text;
-    this.setState(state);
-  }
-
+ 
 
   render() {
     return (
@@ -48,61 +70,61 @@ export default class Adminadd extends React.Component {
       <ImageBackground style={styles.container} source={require('./images/fondo.png')}
         imageStyle={{ resizeMode: 'stretch' }} >
         <View style={styles.inner}>
-           <View>
-               <View>
+           <View style={{paddingTop: 50}}>
+               <View style={styles.subContainer}>
                 <Text>Codigo: </Text>   
                 <TextInput
-                    placeholder={'Codigo'}
+                    placeholder={'Codigo del producto'}
                     value={this.state.codigo}
-                    onChangeText={(text) => this.updateTextInput(text, 'codigo')}
+                    onChangeText={(codigo) => this.setState({codigo})}
                 />
                </View>
-               <View>
+               <View style={styles.subContainer}>
                <Text>Directores: </Text>   
                 <TextInput
                     placeholder={'Precio directores'}
                     value={this.state.directores}
-                    onChangeText={(text) => this.updateTextInput(text, 'directores')}
+                    onChangeText={(directores) => this.setState({directores})}
                 />
                </View>
-               <View>
+               <View style={styles.subContainer}>
                <Text>Mayorista: </Text>   
                 <TextInput
                     placeholder={'Precio mayorista'}
                     value={this.state.mayorista}
-                    onChangeText={(text) => this.updateTextInput(text, 'mayorista')}
+                    onChangeText={(mayorista) => this.setState({mayorista})}
                 />
                </View>
-               <View>
+               <View style={styles.subContainer}>
                <Text>Minorista: </Text>    
                 <TextInput
                     placeholder={'Precio minorista'}
                     value={this.state.minorista}
-                    onChangeText={(text) => this.updateTextInput(text, 'minorista')}
+                    onChangeText={(minorista) => this.setState({minorista})}
                 />
                </View>
-               <View>
+               <View style={styles.subContainer}>
                 <Text>Empresaria: </Text>   
                 <TextInput
                     placeholder={'Precio empresaria'}
                     value={this.state.empresaria}
-                    onChangeText={(text) => this.updateTextInput(text, 'empresaria')}
+                    onChangeText={(empresaria) => this.setState({empresaria})}
                 />
                </View>
-               <View>
+               <View style={styles.subContainer}>
                 <Text>P.V.P: </Text>   
-                <TextInput
+                <TextInput 
                     placeholder={'Precio PVP'}
                     value={this.state.pvp}
-                    onChangeText={(text) => this.updateTextInput(text, 'pvp')}
+                    onChangeText={(pvp) => this.setState({pvp})}
                 />
                </View>
-               <View style={styles.button}>
+               <View style={{paddingTop: 20}}>
                     <Button
                         large
                         leftIcon={{name: 'save'}}
                         title='Guardar'
-                        onPress={() => this.button_inicio()} 
+                        onPress={() => this.button_guardar()} 
                     />
                 </View>
            </View>          
@@ -129,14 +151,17 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'space-between', 
   },
-  subContainer: {
-    flex: 1,
-    marginBottom: 20,
-    padding: 5,
+  subContainer: {    
+    //marginBottom: 20,    
     borderBottomWidth: 2,
     borderBottomColor: '#CCCCCC',
+    flexDirection: 'row', 
+    paddingTop: 20,
+    
    },
-  
+  textinput: {
+    borderColor: 'black',
+  }
   
 
 });
