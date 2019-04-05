@@ -16,7 +16,7 @@ import Iniciarsesion from './component/Iniciarsesion';
 import Camara from './component/Camara';
 import Camaraotra  from './component/Camaraotra';
 import Adminadd from './component/Adminadd';
-
+import Adminlist from './component/Adminlist';
  
 
 const RootStack = createStackNavigator(
@@ -33,6 +33,9 @@ const RootStack = createStackNavigator(
     Camara: {
       screen: Camara,
     },
+    Adminadd: {
+      screen: Adminadd,
+    },
   },
   {
     initialRouteName: 'Home',
@@ -47,7 +50,7 @@ export default class App extends React.Component {
   render() {
     return (
       
-      <Adminadd/>
+      <Adminlist/>
 
       
      

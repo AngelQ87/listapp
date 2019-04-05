@@ -124,6 +124,9 @@ export default class Adminadd extends React.Component {
                         large
                         leftIcon={{name: 'save'}}
                         title='Guardar'
+                        disabled= {!this.state.codigo.length
+                                   
+                                  }
                         onPress={() => this.button_guardar()} 
                     />
                 </View>
